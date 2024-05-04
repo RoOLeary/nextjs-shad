@@ -1,3 +1,5 @@
+import AccordionComponent from '@/components/AccordionComponent'
+import ArticleCarousel from '@/components/ArticleCarousel'
 import CardComponent from '@/components/CardComponent'
 
 interface Recipe {
@@ -26,9 +28,14 @@ export default async function Home() {
     <main>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-sm:px-4">
         {recipes.map(recipe => (
-          // @ts-expect-error
-          <CardComponent key={recipe.id} {...recipe} className="bg-red" />
+          <CardComponent key={recipe.id} {...recipe} />
         ))}
+      </div>
+      <div>
+        <ArticleCarousel />
+      </div>
+      <div>
+        <AccordionComponent />
       </div>
     </main>
   )
