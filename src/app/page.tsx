@@ -13,6 +13,19 @@ interface Recipe {
   className: string
 }
 
+interface Item {
+  title: string,
+  isActive: boolean,
+  backgroundImage: string,
+  description: string
+}
+
+async function getItems(): Promise<Item[]> {
+  const result = await fetch('http://localhost:4001/items')
+  return result.json()
+}
+
+
 async function getRecipes(): Promise<Recipe[]> {
   const result = await fetch('http://localhost:4000/recipes')
 
@@ -24,6 +37,7 @@ async function getRecipes(): Promise<Recipe[]> {
 
 export default async function Home() {
   const recipes = await getRecipes()
+  const items = await getItems()
 
   return (
     <main>
@@ -39,7 +53,7 @@ export default async function Home() {
         <AccordionComponent />
       </div>
       <div className='my-10'>
-        <ExpandingCarousel />
+        <ExpandingCarousel items={items} />
       </div>
     </main>
   )
