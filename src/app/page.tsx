@@ -1,6 +1,7 @@
 import AccordionComponent from '@/components/AccordionComponent'
 import ArticleCarousel from '@/components/ArticleCarousel'
 import CardComponent from '@/components/CardComponent'
+import ExpandingCarousel from '@/components/ExpandingCarousel'
 
 interface Recipe {
   title: string,
@@ -36,6 +37,9 @@ export default async function Home() {
       </div>
       <div>
         <AccordionComponent />
+      </div>
+      <div className='my-10'>
+        <ExpandingCarousel />
       </div>
     </main>
   )
