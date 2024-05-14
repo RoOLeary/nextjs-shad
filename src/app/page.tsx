@@ -21,7 +21,7 @@ interface Item {
 }
 
 async function getItems(): Promise<Item[]> {
-  const result = await fetch('http://localhost:4001/items')
+  const result = await fetch('http://localhost:4000/items')
   return result.json()
 }
 
