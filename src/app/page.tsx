@@ -30,7 +30,7 @@ async function getRecipes(): Promise<Recipe[]> {
   const result = await fetch('http://localhost:4000/recipes')
 
   // delay response
-  await new Promise((resolve) => setTimeout(resolve, 2500))
+  // await new Promise((resolve) => setTimeout(resolve, 2500))
 
   return result.json()
 }
@@ -41,7 +41,7 @@ export default async function Home() {
 
   return (
     <main>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-sm:px-4">
+      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-sm:px-4">
         {recipes.map(recipe => (
           <CardComponent key={recipe.id} {...recipe} />
         ))}
@@ -51,7 +51,7 @@ export default async function Home() {
       </div>
       <div>
         <AccordionComponent />
-      </div>
+      </div> */}
       <div className='my-10'>
         <ExpandingCarousel items={items} />
       </div>
