@@ -9,44 +9,49 @@ import {
 } from "@/components/ui/carousel";
 
 import { type CarouselApi } from "@/components/ui/carousel";
+import { get } from "http";
 
 export default function ExpandingCarousel({ items }:any) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
 
+  
+
   const handleSelect = async (selectedIndex: React.SetStateAction<number>) => {
     if (!api) return;
   
-    // Update the active index after ensuring the item is scrolled into view
-    const updateActiveIndex = () => {
-      console.log('fully in view or scrolled to view');
+     // Update the active index after ensuring the item is scrolled into view
+     const updateActiveIndex = () => {
+      console.log('fully in view or scrolled to view:', selectedIndex);
       setActiveIndex(selectedIndex);
     };
   
-    updateActiveIndex();
-    // Delay to stabilize state updates if needed
-    // await new Promise(resolve => setTimeout(resolve, 10));
+    
+    
     // Determine if the selected item is fully in view
     const scrollSnaps = api.scrollSnapList();
     const currentScroll = api.scrollProgress();
     // @ts-ignore
     const targetSnap = scrollSnaps[selectedIndex];
-    const isItemFullyInView = Math.abs(currentScroll - targetSnap) < 0.9;
+    const isItemFullyInView = Math.abs(currentScroll - targetSnap) > 0.9;
     
     
     // Scroll to the selected item if it is not fully in view and then update index
     if (!isItemFullyInView) {
+      await new Promise(resolve => setTimeout(resolve, 150));
       // @ts-ignore
       api.scrollTo(selectedIndex);
+    
     } 
+    updateActiveIndex();
   };
   
-  const getAlignment = (index: number) => {
-    if ([ 1, 2, 4, 5 ].includes(index)) return 'end';
-    if ([ 4 ].includes(index)) return 'center';
-    return 'start'; // default alignment if index is out of expected range
+
+  const getAlignment = (index:any) => {
+    if ((index === 1)) return "center";
+    if ((index === 2)) return "end";
+    return "start";
   };
-  
 
   return (
     <div className="expandingCarousel">
@@ -78,13 +83,18 @@ export default function ExpandingCarousel({ items }:any) {
       </Carousel>
       <div className="flex justify-center mt-4">
         {items.map((_: any, index:any) => (
+          <>
+         
           <span
             key={index}
             // @ts-ignore
             onClick={() => handleSelect(index)}
             className={`w-4 h-4 mx-2 cursor-pointer rounded-full ${index === activeIndex ? "bg-red-700" : "bg-gray-400"}`}
           ></span>
+          </>
+          
         ))}
+         {/* <p>{activeIndex + 1} / {items.length}</p> */}
       </div>
     </div>
   );
