@@ -23,29 +23,28 @@ export default function ExpandingCarousel({ items }:any) {
       setActiveIndex(selectedIndex);
     };
   
+    updateActiveIndex();
     // Delay to stabilize state updates if needed
     // await new Promise(resolve => setTimeout(resolve, 10));
-  
     // Determine if the selected item is fully in view
     const scrollSnaps = api.scrollSnapList();
     const currentScroll = api.scrollProgress();
     // @ts-ignore
     const targetSnap = scrollSnaps[selectedIndex];
     const isItemFullyInView = Math.abs(currentScroll - targetSnap) < 0.9;
-  
+    
+    
     // Scroll to the selected item if it is not fully in view and then update index
     if (!isItemFullyInView) {
       // @ts-ignore
       api.scrollTo(selectedIndex);
-    }
-    
-    updateActiveIndex();
-    
+    } 
   };
   
   const getAlignment = (index: number) => {
-    if ([ 1, 3].includes(index)) return 'start';
-    return 'end'; // default alignment if index is out of expected range
+    if ([ 1, 2, 4, 5 ].includes(index)) return 'end';
+    if ([ 4 ].includes(index)) return 'center';
+    return 'start'; // default alignment if index is out of expected range
   };
   
 
