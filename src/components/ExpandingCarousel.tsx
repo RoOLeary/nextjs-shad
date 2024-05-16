@@ -28,6 +28,7 @@ export default function ExpandingCarousel({ items }:any) {
   
     
     
+    
     // Determine if the selected item is fully in view
     const scrollSnaps = api.scrollSnapList();
     const currentScroll = api.scrollProgress();
@@ -37,18 +38,18 @@ export default function ExpandingCarousel({ items }:any) {
     
     
     // Scroll to the selected item if it is not fully in view and then update index
-    if (!isItemFullyInView) {
-      await new Promise(resolve => setTimeout(resolve, 150));
-      // @ts-ignore
+    // @ts-ignore
+    if (!isItemFullyInView && selectedIndex > 1) {
+      await new Promise(resolve => setTimeout(resolve, 200));
+      // @ts-ignore     
       api.scrollTo(selectedIndex);
-    
     } 
     updateActiveIndex();
   };
   
 
   const getAlignment = (index:any) => {
-    if ((index === 1)) return "center";
+    // if ((index === 1)) return "center";
     if ((index === 2)) return "end";
     return "start";
   };
@@ -57,7 +58,7 @@ export default function ExpandingCarousel({ items }:any) {
     <div className="expandingCarousel">
       <h2 className="line-title">trending games</h2>
       {/* // @ts-ignore */}
-      <Carousel opts={{ align: getAlignment(activeIndex), containScroll: 'trimSnaps'}} className="game-section" setApi={setApi} scrollTo={() => scrollTo()}>
+      <Carousel opts={{ align: "start", containScroll: 'trimSnaps'}} className="game-section" setApi={setApi} scrollTo={() => scrollTo()}>
         <CarouselContent>
           {items.map((item: { backgroundImage: any; title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }, index: React.Key | null | undefined) => (
             <div className="w-auto" key={index}>
