@@ -20,7 +20,7 @@ type CarouselProps = {
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
   selectedIndex?: number
-  scrollTo: (index: number) => void
+  scrollTo?: (index: number) => void
 }
 
 type CarouselContextProps = {
@@ -31,7 +31,7 @@ type CarouselContextProps = {
   canScrollPrev: boolean
   canScrollNext: boolean
   selectedIndex?: number
-  scrollTo: (index: number) => void
+  scrollTo?: (index: number) => void
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -288,6 +288,7 @@ const CarouselDots = React.forwardRef<
           <Button
             key={index}
             className={`p-0 w-4 h-4 mx-2 cursor-pointer rounded-full ${index === selectedIndex ? ' bg-red-700' : 'bg-gray-400'}`}
+            // @ts-ignore
             onClick={() => scrollTo(index)}
           />
         ))}
